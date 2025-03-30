@@ -28,6 +28,9 @@ The goal was to create something that feels realistic, is easy to extend, and he
 - NewsAPI
 - requests
 
+Why I Built This
+I wanted to learn more about how embeddings work in NLP, and how they can be applied to real-world problems like recommendations. I also wanted to practice building modular code that could be extended later into a web app or support multiple users.
+
 ## How to Run
 
 Install the requirements:
