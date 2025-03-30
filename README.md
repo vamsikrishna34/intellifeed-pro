@@ -1,74 +1,38 @@
-# IntelliFeed Pro: Real-Time Personalized News Recommender
+# IntelliFeed Pro – Personalized News Recommender
 
-IntelliFeed Pro is a modular Python application that delivers personalized news recommendations in real-time by combining sentence embeddings with user interest profiles. It is designed to demonstrate practical skills in natural language processing, embedding-based similarity matching, and modular software architecture, aligned with industry-relevant tools and workflows for AI engineering.
+This is a personal project I built to explore how natural language processing can be used to match user interests with news articles. The system pulls live headlines from NewsAPI and ranks them based on how closely they relate to a user’s interest profile using sentence embeddings.
 
-## Overview
+The goal was to create something that feels realistic, is easy to extend, and helps me apply what I’ve learned about NLP, semantic similarity, and modular Python development.
 
-The system allows a user to select from a set of simulated profiles, fetches recent news articles using NewsAPI, and ranks them based on semantic similarity to the user’s interests using Sentence-BERT embeddings.
+## What It Does
 
-This project showcases how modern NLP techniques can be applied to content recommendation and serves as a baseline for more advanced personalization and ranking systems.
+- Takes a user’s interest profile (e.g., AI, AR, healthcare)
+- Fetches recent tech news from NewsAPI
+- Uses Sentence-BERT (SBERT) to create embeddings of the news content
+- Compares the user’s interest to the articles using cosine similarity
+- Returns a list of the top 5 most relevant articles
 
-## Features
+## How It Works
 
-- Fetches real-time news articles from NewsAPI
-- Compares news content to user interests using SBERT embeddings
-- Ranks articles by semantic similarity using cosine similarity
-- Modular architecture for maintainability and extension
-- Includes multiple user profiles representing diverse interest areas
+1. User selects a profile (there are 3 predefined users)
+2. The app fetches recent headlines
+3. The user's interest string is converted into an embedding
+4. Each article is converted into an embedding
+5. The most relevant articles are selected using cosine similarity
 
-## Project Structure
+## Tech Stack
 
-intellifeed_pro/
-├── fetch_news.py         # Pulls real-time news from NewsAPI
-├── user_profiles.py      # Contains simulated user profiles
-├── recommender.py        # Uses SBERT embeddings to compute similarity
-├── main.py               # CLI interface to run the full pipeline
-├── README.md             # Documentation
-
-## Installation
-
-Install the required Python packages before running the application:
-
-pip install pandas sentence-transformers requests
-
-Ensure you have Python 3.7+ installed.
+- Python
+- sentence-transformers (SBERT)
+- pandas
+- NewsAPI
+- requests
 
 ## How to Run
 
-Execute the main script and follow the prompts:
+Install the requirements:
+
+```bash
+pip install pandas sentence-transformers requests
 
 python main.py
-
-You will be asked to select a user profile. The system will then fetch the latest tech news and display the top recommendations based on that user’s interests.
-
-## Technical Highlights
-
-- Uses the sentence-transformers library for high-quality sentence embeddings
-- Implements cosine similarity scoring for ranking
-- Integrates external API data from NewsAPI
-- Demonstrates basic command-line interaction for prototype testing
-- Uses pandas for data handling and manipulation
-
-## User Profiles
-
-The system includes a set of pre-defined users, each with a different focus area:
-
-- Ethan Brown – AI, machine learning, and automation
-- Chloe Thompson – augmented reality, gaming, and consumer tech
-- Maya Patel – healthcare AI and medical technology
-
-## Future Work
-
-This project is a working prototype and can be extended with the following:
-
-- Add user feedback to improve personalization over time
-- Store user sessions and preferences in a database
-- Implement front-end interface using Streamlit or Flask
-- Incorporate additional filtering and topic detection techniques
-
-## Author
-
-VamsiKrishna Nallagatla  
-Graduate Student, DePaul University  
-AI Engineering and Software Development  
-LinkedIn: https://www.linkedin.com/in/vamsikrishna89/
