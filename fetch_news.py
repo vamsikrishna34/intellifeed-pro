@@ -1,13 +1,12 @@
 import requests
 import logging
 
-API_KEY = "31bd603a7db4444bba9287021b788465"
+
 
 def fetch_latest_headlines(country="us", category="technology", page_size=20):
     logging.info(f"Fetching headlines for country: {country}, category: {category}, page_size: {page_size}")
     url = "https://newsapi.org/v2/top-headlines"
     params = {
-        "apiKey": API_KEY,
         "country": country,
         "category": category,
         "pageSize": page_size
