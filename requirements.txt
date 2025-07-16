@@ -1,6 +1,2 @@
 gradio
-requests
 pandas
-numpy
-scikit-learn
-sentence-transformers
