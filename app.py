@@ -1,34 +1,39 @@
-import streamlit as st
-from fetch_news import fetch_latest_headlines
-from recommender import recommend_articles
+import gradio as gr
+import time
+from src.fetch_news import fetch_latest_headlines
+from src.recommender import recommend_articles
 import pandas as pd
 
-st.title("IntelliFeed Pro - News Recommender")
+def get_recommendations(user_input_interests):
+    start_time = time.time()
 
-user_input_interests = st.text_input("Enter your interests (e.g., AI, machine learning):")
-recommend_button_pressed = st.button("Get News Recommendations")
-
-if recommend_button_pressed:
     if not user_input_interests.strip():
-        st.warning("Please enter some keywords or a sentence describing your interests before clicking 'Get News Recommendations'.")
-    else:
-        with st.spinner("Fetching news and generating recommendations..."):
-            # Fetch News
-            # Using default parameters for country (us) and category (technology)
-            articles = fetch_latest_headlines() 
-            
-            if not articles: # fetch_latest_headlines returns [] on error or no articles
-                st.error("Could not fetch news. Please check your connection/API key, ensure news service is available, or try again later.")
-            else:
-                # Get Recommendations
-                # recommend_articles expects a list of article dicts and a string of interests
-                recommendations_df = recommend_articles(articles, user_input_interests) 
-                
-                if recommendations_df.empty:
-                    # Assuming recommender.py logs its internal errors (e.g., model issues).
-                    # An empty DataFrame here, after successfully fetching articles,
-                    # implies no articles matched the specific interest.
-                    st.info("Successfully fetched news, but no articles closely matched your specified interests. Try broadening your search terms.")
-                else:
-                    st.subheader("Top Recommendations for you:")
-                    st.dataframe(recommendations_df)
+        return " Please enter some keywords or a sentence describing your interests.", pd.DataFrame()
+
+    articles = fetch_latest_headlines(page_size=10)  # Keep it fast
+
+    if not articles:
+        return " Could not fetch news. Please check your API key or try again later.", pd.DataFrame()
+
+    recommendations_df = recommend_articles(articles, user_input_interests)
+
+    if recommendations_df.empty:
+        return "ℹNews fetched, but no articles matched your interests. Try broader keywords.", pd.DataFrame()
+
+    elapsed = end_time = time.time() - start_time
+    status = f"Top Recommendations (completed in {elapsed:.2f} seconds):"
+    return status, recommendations_df[["title", "url"]]
+
+demo = gr.Interface(
+    fn=get_recommendations,
+    inputs=gr.Textbox(label="Enter your interests (e.g., AI, machine learning)", lines=2, placeholder="Type your interests here..."),
+    outputs=[
+        gr.Textbox(label="Status"),
+        gr.Dataframe(label="Recommended Articles")
+    ],
+    title="📰 IntelliFeed Pro - News Recommender",
+    description="Get personalized news recommendations based on your interests using NLP and TF-IDF similarity."
+)
+
+if __name__ == "__main__":
+    demo.launch()
