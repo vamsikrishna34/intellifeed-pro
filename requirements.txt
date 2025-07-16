@@ -1,4 +1,6 @@
-streamlit
-pandas
-sentence-transformers
+gradio
 requests
+pandas
+numpy
+scikit-learn
+sentence-transformers
