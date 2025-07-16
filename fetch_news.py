@@ -1,41 +1,39 @@
 import requests
-import logging
 
 
+API_KEY = "bdf6b197b973437d8e9d20e191028de8"
 
-def fetch_latest_headlines(country="us", category="technology", page_size=20):
-    logging.info(f"Fetching headlines for country: {country}, category: {category}, page_size: {page_size}")
-    url = "https://newsapi.org/v2/top-headlines"
+def fetch_latest_headlines(query="technology", page_size=10):
+    url = "https://newsapi.org/v2/everything"
     params = {
-        "country": country,
-        "category": category,
-        "pageSize": page_size
+        "q": query,
+        "pageSize": page_size,
+        "language": "en",
+        "sortBy": "relevancy",
+        "apiKey": API_KEY
     }
+
     try:
         response = requests.get(url, params=params)
-        response.raise_for_status()  # Raises an HTTPError for bad responses (4XX or 5XX)
-    except requests.exceptions.RequestException as e:
-        logging.error(f"Error during API request: {e}")
+        response.raise_for_status()
+        data = response.json()
+    except Exception as e:
+        print(f"Error fetching articles: {e}")
         return []
 
-    try:
-        data = response.json()
-    except ValueError as e: # Catches JSON decoding errors
-        logging.error(f"Error decoding JSON response: {e}")
-        return []
-        
     articles = data.get("articles", [])
-    if not articles: # Handles empty or missing 'articles'
-        logging.info(f"No articles found in API response for country: {country}, category: {category}.")
+    if not articles:
+        print("No articles found.")
         return []
-    
+
     cleaned = []
     for art in articles:
         cleaned.append({
-            "title": art["title"] or "",
-            "description": art["description"] or "",
-            "content": art["content"] or "",
-            "publishedAt": art["publishedAt"]
+            "title": art.get("title", ""),
+            "description": art.get("description", ""),
+            "content": art.get("content", ""),
+            "url": art.get("url", ""),
+            "publishedAt": art.get("publishedAt", "")
         })
-    logging.info(f"Successfully fetched and cleaned {len(cleaned)} articles.")
+
     return cleaned
