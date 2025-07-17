@@ -1,15 +1,13 @@
 import requests
 
-# Replace with your actual NewsAPI key
 API_KEY = "bdf6b197b973437d8e9d20e191028de8"
 
 def fetch_latest_headlines(query="technology", page_size=10):
-    url = "https://newsapi.org/v2/everything"
+    url = "https://newsapi.org/v2/top-headlines"
     params = {
         "q": query,
         "pageSize": page_size,
         "language": "en",
-        "sortBy": "relevancy",
         "apiKey": API_KEY
     }
 
