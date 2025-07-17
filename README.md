@@ -1,3 +1,17 @@
+---
+title: IntelliFeed Pro
+emoji: 📰
+colorFrom: indigo
+colorTo: blue
+sdk: gradio
+sdk_version: "3.50.2"
+app_file: app.py
+pinned: false
+---
+
+
+
+
 # IntelliFeed Pro – Personalized News Recommender
 
 This is a personal project I built to explore how natural language processing can be used to match user interests with news articles. The system pulls live headlines from NewsAPI and ranks them based on how closely they relate to a user’s interest profile using sentence embeddings.
