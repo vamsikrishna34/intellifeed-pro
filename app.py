@@ -10,7 +10,7 @@ def get_recommendations(user_input_interests):
     start_time = time.time()
 
     if not user_input_interests.strip():
-        print("⚠️ Empty input received.")
+        print(" Empty input received.")
         return "Please enter some keywords or a sentence describing your interests.", pd.DataFrame()
 
     articles = fetch_latest_headlines(page_size=10)

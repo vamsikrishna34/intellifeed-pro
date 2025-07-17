@@ -8,12 +8,12 @@ EMPTY_DF = pd.DataFrame(columns=['title', 'publishedAt', 'score'])
 try:
     model = SentenceTransformer('paraphrase-MiniLM-L3-v2')
 except Exception as e:
-    print(f"❌ Error loading SentenceTransformer model: {e}")
+    print(f"Error loading SentenceTransformer model: {e}")
     model = None
 
 def recommend_articles(articles, user_interest, top_n=5):
     if model is None:
-        print("⚠️ Model not loaded. Cannot recommend articles.")
+        print("Model not loaded. Cannot recommend articles.")
         return EMPTY_DF.copy()
 
     if not articles or not user_interest.strip():
@@ -40,5 +40,5 @@ def recommend_articles(articles, user_interest, top_n=5):
         return top_articles[['title', 'publishedAt', 'score']]
 
     except Exception as e:
-        print(f"❌ Error during recommendation: {e}")
+        print(f"Error during recommendation: {e}")
         return EMPTY_DF.copy()

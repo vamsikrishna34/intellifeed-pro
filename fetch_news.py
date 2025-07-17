@@ -16,7 +16,7 @@ def fetch_latest_headlines(query="technology", page_size=10):
         response.raise_for_status()
         data = response.json()
     except Exception as e:
-        print(f"❌ Error fetching articles: {e}")
+        print(f" Error fetching articles: {e}")
         return []
 
     articles = data.get("articles", [])
