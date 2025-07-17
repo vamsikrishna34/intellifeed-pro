@@ -74,3 +74,5 @@ To run the original command-line interface (for predefined user profiles):
 python main.py
 ```
 This will prompt you to select a predefined user profile.
+
+Link: https://huggingface.co/spaces/vamsikrishna1345/intellifeedpro
